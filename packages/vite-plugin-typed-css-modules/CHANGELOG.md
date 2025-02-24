@@ -1,5 +1,14 @@
 # @handnet/vite-plugin-typed-css-modules
 
+## 0.0.5
+
+### Patch Changes
+
+- Better support for SCSS modules
+- Initial release
+- Better support for SCSS modules
+- Fix CJS/ESM interop (missing \_\_dirname if consumer is ESM)
+
 ## 0.0.4
 
 ### Patch Changes
