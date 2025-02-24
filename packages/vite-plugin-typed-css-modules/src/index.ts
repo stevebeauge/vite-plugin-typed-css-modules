@@ -54,6 +54,9 @@ function typedCssModules(): PluginOption {
             if (!consumerRoot) {
                 throw new Error("consumerRoot is not set");
             }
+            if (!id.startsWith(consumerRoot) || id.includes("node_modules")) {
+                return null;
+            }
             if (id.endsWith(".css") || id.endsWith(".scss")) {
                 const preprocessor = id.endsWith(".scss") ? "scss" : undefined;
                 const exports = await extractClassnames(code, id, { preprocessor });
