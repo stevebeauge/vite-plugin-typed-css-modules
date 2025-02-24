@@ -1,7 +1,7 @@
 {
   "name": "@example/shared",
-  "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "Sample component lib",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
