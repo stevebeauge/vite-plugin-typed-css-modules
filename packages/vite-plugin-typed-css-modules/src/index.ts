@@ -4,8 +4,12 @@ import path from "node:path";
 import type { PluginOption } from "vite";
 
 function extractClassnames(code: string, sourceFile: string): string[] | null {
+    // Strips all scss comments. This may still be an invalid CSS, but we only care about class names.
+    // This prevents having to preprocess scss files.
+    const strippedCode = code.replace(/\/\/.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, "");
+
     const { exports } = transform({
-        code: Buffer.from(code),
+        code: Buffer.from(strippedCode),
         filename: sourceFile,
         cssModules: true,
     });
@@ -17,7 +21,7 @@ function generateTypeDefinitions(exports: string[]): string {
     const typeDefinitions = exports.map((key) => `  readonly "${key}": string;`).join("\n");
 
     const content = `declare const styles: {
-  ${typeDefinitions}
+${typeDefinitions}
 };
 export default styles;
   `;

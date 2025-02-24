@@ -1,5 +1,15 @@
+@use 'variables.scss';
+
 .uglyButton {
   color: pink;
   background-color: green;
   border: 1px solid black;
+
+  .someRule {
+    // Scss allow comments, but not CSS.
+    /*
+      This should be removed before parsing
+    */
+    color: variables.$primary;
+  }
 }

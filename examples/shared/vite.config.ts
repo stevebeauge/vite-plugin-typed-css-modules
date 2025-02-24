@@ -17,6 +17,6 @@ export default defineConfig({
   },
   plugins: [externalizeDeps(), dts(), libInjectCss(), typedCssModules()],
   css: {
-    transformer: "lightningcss",
+    transformer: "postcss",
   },
 });

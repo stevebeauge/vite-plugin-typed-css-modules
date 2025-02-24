@@ -1,5 +1,6 @@
 declare const styles: {
-    readonly "uglyButton": string;
+    readonly "someRule": string;
+  readonly "uglyButton": string;
 };
 export default styles;
   
