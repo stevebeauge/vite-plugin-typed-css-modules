@@ -65,6 +65,10 @@ const buttonClass = styles.button; // type-safe
 
 Currently, the plugin does not require any configuration. It automatically processes files with `.css` and `.scss` extensions.
 
+## Contributing
+
+Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request. We appreciate your help in improving this project.
+
 ## License
 
 Apache License 2.0
