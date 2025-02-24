@@ -26,10 +26,17 @@ export default styles;
 }
 
 function typedCssModules(): PluginOption {
+    let consumerRoot: string | undefined;
     return {
         name: "vite-plugin-css-types",
-        enforce: "pre", // Exécuter après le traitement des CSS
+        enforce: "pre",
+        configResolved(config) {
+            consumerRoot = config.root;
+        },
         async transform(code, id) {
+            if (!consumerRoot) {
+                throw new Error("consumerRoot is not set");
+            }
             if (id.endsWith(".css") || id.endsWith(".scss")) {
                 const exports = extractClassnames(code, id);
 
@@ -41,7 +48,9 @@ function typedCssModules(): PluginOption {
 
                 await fs.promises.writeFile(target, definitions, "utf-8");
 
-                this.info(`Generated types for ${path.relative(__dirname, id)} at ${path.relative(__dirname, target)}`);
+                this.info(
+                    `Generated types for ${path.relative(consumerRoot, id)} at ${path.relative(consumerRoot, target)}`,
+                );
             }
             return null;
         },
