@@ -1,9 +1,9 @@
 declare const styles: {
-    readonly "sub": string;
-  readonly "other": string;
   readonly "shinnyButton": string;
   readonly "icon": string;
+  readonly "sub": string;
   readonly "label": string;
+  readonly "other": string;
 };
 export default styles;
   

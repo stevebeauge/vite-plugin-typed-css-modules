@@ -1,15 +1,28 @@
 import { transform } from "lightningcss";
 import * as fs from "node:fs";
 import path from "node:path";
+import sass from "sass-embedded";
 import type { PluginOption } from "vite";
 
-function extractClassnames(code: string, sourceFile: string): string[] | null {
-    // Strips all scss comments. This may still be an invalid CSS, but we only care about class names.
-    // This prevents having to preprocess scss files.
-    const strippedCode = code.replace(/\/\/.*$/gm, "").replace(/\/\*[\s\S]*?\*\//g, "");
+interface ExtractClassnamesOptions {
+    preprocessor?: "scss";
+}
+
+async function extractClassnames(
+    code: string,
+    sourceFile: string,
+    options: ExtractClassnamesOptions = {},
+): Promise<string[] | null> {
+    let processedCode: string;
+
+    if (options.preprocessor === "scss") {
+        processedCode = sass.compile(sourceFile).css.toString();
+    } else {
+        processedCode = code;
+    }
 
     const { exports } = transform({
-        code: Buffer.from(strippedCode),
+        code: Buffer.from(processedCode),
         filename: sourceFile,
         cssModules: true,
     });
@@ -42,7 +55,8 @@ function typedCssModules(): PluginOption {
                 throw new Error("consumerRoot is not set");
             }
             if (id.endsWith(".css") || id.endsWith(".scss")) {
-                const exports = extractClassnames(code, id);
+                const preprocessor = id.endsWith(".scss") ? "scss" : undefined;
+                const exports = await extractClassnames(code, id, { preprocessor });
 
                 if (!exports) return null;
 
