@@ -1,0 +1,10 @@
+.pnpm-store
+**/node_modules
+**/dist
+
+.turbo
+*.tsbuildinfo
+
+vite.config.ts.timestamp-*.*
+
+

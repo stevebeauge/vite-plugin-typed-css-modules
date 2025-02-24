@@ -1,0 +1,52 @@
+{
+    "name": "@handnet/vite-plugin-typed-css-modules",
+    "private": false,
+    "version": "0.0.2",
+    "type": "module",
+    "files": [
+        "dist"
+    ],
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build": "tsc -b -verbose",
+        "clean": "rimraf dist",
+        "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm",
+        "format": "prettier --write . --ignore-path ../../.gitignore",
+        "check-format": "prettier --check . --ignore-path ../../.gitignore",
+        "ci": "pnpm run build && pnpm run check-format && pnpm run check-exports",
+        "prepublishOnly": "pnpm run ci",
+        "local-release": "changeset version && changeset publish"
+    },
+    "description": "A Vite plugin for strong typing CSS modules, using ⚡ lightningcss for efficiency",
+    "keywords": [
+        "vite",
+        "plugin",
+        "css-modules",
+        "typescript"
+    ],
+    "author": "Steve Beaugé <184604+stevebeauge@users.noreply.github.com>",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/stevebeauge/vite-plugin-typed-css-modules.git"
+    },
+    "bugs": {
+        "url": "https://github.com/stevebeauge/vite-plugin-typed-css-modules/issues"
+    },
+    "homepage": "https://github.com/stevebeauge/vite-plugin-typed-css-modules#readme",
+    "devDependencies": {
+        "@arethetypeswrong/cli": "^0.17.4",
+        "@changesets/cli": "^2.28.1",
+        "@types/node": "^22.13.5",
+        "lightningcss": "^1.29.1",
+        "prettier": "^3.5.2",
+        "rimraf": "6.0.1",
+        "typescript": "~5.7.3",
+        "vite": "^6.1.1"
+    },
+    "peerDependencies": {
+        "vite": ">=6.0.0"
+    }
+}
